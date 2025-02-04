@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: pacbikes_raw_snapshot
+    database: pacbikes-dwh
+    schema: raw
+    tables:
+      - name: product

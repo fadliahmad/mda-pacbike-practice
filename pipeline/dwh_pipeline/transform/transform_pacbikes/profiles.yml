@@ -1,0 +1,12 @@
+transform_pacbikes:
+  outputs:
+    dev:
+      dbname: pacbikes-dwh
+      host: localhost
+      pass: '123'
+      port: 5439
+      schema: final
+      threads: 1
+      type: postgres
+      user: postgres
+  target: dev
