@@ -20,7 +20,7 @@
 ### 2. Preparations
 - **Clone repo** :
   ```
-  git clone https://github.com/Kurikulum-Sekolah-Pacmann/mda-pacbikes.git
+  git clone https://github.com/fadliahmad/mda-pacbike-practice.git
   ```
   
 - In project directory, **create and use virtual environment**.
