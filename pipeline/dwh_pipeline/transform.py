@@ -14,8 +14,34 @@ DIR_TEMP_LOG = os.getenv("DIR_TEMP_LOG")
 DIR_TEMP_DATA = os.getenv("DIR_TEMP_DATA")
 DIR_DBT_TRANSFORM = os.getenv("DIR_DBT_TRANSFORM")
 DIR_LOG = os.getenv("DIR_LOG")
+DWH_POSTGRES_DB = os.getenv("DWH_POSTGRES_DB")
+DWH_POSTGRES_HOST = os.getenv("DWH_POSTGRES_HOST")
+DWH_POSTGRES_USER = os.getenv("DWH_POSTGRES_USER")
+DWH_POSTGRES_PASSWORD= os.getenv("DWH_POSTGRES_PASSWORD")
+DWH_POSTGRES_PORT= os.getenv("DWH_POSTGRES_PORT")
 
 class Transform(luigi.Task):
+    tables_to_truncate = [
+        ['raw', 'currency'],
+        ['raw', 'person'],
+        ['raw', 'employee'],
+        ['raw', 'product'],
+        ['raw', 'shipmethod'],
+        ['raw', 'currencyrate'],
+        ['raw', 'salesreason'],
+        ['raw', 'salesterritory'],
+        ['raw', 'specialoffer'],
+        ['raw', 'salesperson'],
+        ['raw', 'store'],
+        ['raw', 'customer'],
+        ['raw', 'specialofferproduct'],
+        ['raw', 'salespersonquotahistory'],
+        ['raw', 'salesterritoryhistory'],
+        ['raw', 'shoppingcartitem'],
+        ['raw', 'salesorderheader'],
+        ['raw', 'salesorderdetail'],
+        ['raw', 'salesorderheadersalesreason']
+    ]
     
     def requires(self):
         return Load_DWH()
@@ -29,6 +55,7 @@ class Transform(luigi.Task):
                
         # Transform to dimensions tables
         try:
+            # transform from raw schema to final schema
             with open (file = f'{DIR_LOG}/logs.log', mode = 'a') as f :
                 sp.run(
                     f"cd {DIR_DBT_TRANSFORM} && dbt snapshot && dbt run && dbt test",
@@ -51,6 +78,7 @@ class Transform(luigi.Task):
                         "table_name": None,
                         "etl_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Current timestamp
                     }
+
         except Exception as e:
             logging.error(f"Transform to All Dimensions and Fact Tables - FAILED")
         

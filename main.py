@@ -34,7 +34,8 @@ if __name__ == "__main__":
                 Load_STG(),
                 Extract_STG(),
                 Load_DWH(),
-                Transform()])
+                Transform()
+                ])
     
     
     # Delete temp data
